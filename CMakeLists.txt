@@ -16,9 +16,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${INC_DIR}/xtbclient")
 # date dependency
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${INC_DIR}/date/include")
 
-set(SOURCE_FILES src/main.cpp src/util/HeikinAshi.h src/util/Indicator.h src/util/TradeMath.h src/interface/ModuleBase.h)
+set(SOURCE_FILES src/main.cpp src/interface/ModuleBase.h)
 add_executable(backtest ${SOURCE_FILES})
 target_link_libraries(backtest ${LIB_DIR}/xtbclient/libxtbclient.dylib dl)
+
+INSTALL(TARGETS backtest DESTINATION bin/)
 
 # include example
 add_subdirectory(src/example)

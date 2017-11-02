@@ -64,6 +64,13 @@ void checkFiles(const string& historyFilename, const string& strategyFilename){
   }
 }
 
+void show_usage(){
+  println("Usage: backtest [options]");
+  println("\t-f <history.log> *required, Format: \"SYMBOL;ctm;ctmString;open;high;low;close;volume;quoteid\"");
+  println("\t-s <strategy.so> *reguired");
+  println("\t-v Show version info.");
+}
+
 /*!
  * Main
  * @param argc
@@ -74,9 +81,7 @@ int main(int argc, char* argv[]) {
   // load data from file
 
   if( argc < 2 ){
-    println("Usage: backtest [options]");
-    println("\t-f <history.log> *required, Format: \"SYMBOL;ctm;ctmString;open;high;low;close;volume;quoteid\"");
-    println("\t-s <strategy.so> *reguired");
+    show_usage();
     exit(EXIT_FAILURE);
   }
 
@@ -84,13 +89,19 @@ int main(int argc, char* argv[]) {
   string strategyFilename;
 
   int opt;
-  while( (opt = getopt(argc, argv, "f:s:")) != -1 ) {
+  while( (opt = getopt(argc, argv, "f:s:v")) != -1 ) {
     switch (opt) {
       case 'f':
         historyFilename = optarg;
         break;
       case 's':
         strategyFilename = optarg;
+        break;
+      case 'v':
+        println("Copyright(c)2017, Arne Gockeln. All rights reserved.");
+        println("http://www.arnegockeln.com");
+        show_usage();
+        exit(EXIT_SUCCESS);
         break;
       default:
         exit(EXIT_FAILURE);
